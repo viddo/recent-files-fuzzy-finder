@@ -2,6 +2,7 @@
 
 Quickly find recently opened files through the default [Fuzzy Finder](https://github.com/atom/fuzzy-finder) in [Atom](https://atom.io/).
 
+![demo](https://cloud.githubusercontent.com/assets/978461/6547149/df374dd4-c5cf-11e4-9523-fd892b6ec3e5.gif)
 
 ## Why?
 The motivation is similar to [navigating to recently opened files](http://blog.jetbrains.com/webide/2013/02/navigating-between-files-in-the-ide-best-practices/) in the [Jetbrains IDEs](https://www.jetbrains.com/).
