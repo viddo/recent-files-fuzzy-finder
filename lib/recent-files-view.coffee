@@ -1,4 +1,6 @@
-FuzzyFinderView = require "#{atom.packages.resolvePackagePath('fuzzy-finder')}/lib/fuzzy-finder-view"
+path = require 'path'
+packagePath = atom.packages.resolvePackagePath('fuzzy-finder')
+FuzzyFinderView = require path.join(packagePath, 'lib', 'fuzzy-finder-view')
 
 module.exports =
 class RecentFilesView extends FuzzyFinderView
