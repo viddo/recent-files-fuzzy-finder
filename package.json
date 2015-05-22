@@ -1,7 +1,7 @@
 {
   "name": "recent-files-fuzzy-finder",
   "main": "./lib/main",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Find recently opened files easier",
   "repository": "https://github.com/viddo/recent-files-fuzzy-finder",
   "license": "MIT",
