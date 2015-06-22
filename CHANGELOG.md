@@ -1,3 +1,6 @@
+## 0.1.4
+* Fix Uncaught Error: Unable to watch path
+
 ## 0.1.3 - Fix undefined method call
 * Add missing require for fs dependency
 
