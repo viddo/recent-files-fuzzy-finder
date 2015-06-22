@@ -21,4 +21,9 @@ class WorkspaceObserver
     @_projectDirectoryObservers = new CompositeDisposable
     for path in atom.project.getPaths()
       dir = new Directory(path)
-      @_projectDirectoryObservers.add dir.onDidChange => @_recentFiles.removeDeleted()
+      try
+        @_projectDirectoryObservers.add dir.onDidChange => @_recentFiles.removeDeleted()
+      catch err
+        # e.g. opening a path that doesn't exist on linux throws an error
+        # see https://github.com/viddo/recent-files-fuzzy-finder/issues/3
+        console.warn "Could not observe path #{path}", err
