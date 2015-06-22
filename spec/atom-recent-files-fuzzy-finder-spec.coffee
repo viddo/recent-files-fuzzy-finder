@@ -152,3 +152,13 @@ describe "RecentFilesFuzzyFinder", ->
 
       runs ->
         expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample.js']
+
+  describe 'when a non-existing path is added', ->
+    beforeEach ->
+      spyOn(console, 'warn')
+      atom.project.setPaths([rootDir1, rootDir2, 'this/do/not/exist'])
+
+    it 'do not watch that directory', ->
+      expect(console.warn).toHaveBeenCalled()
+      expect(console.warn.calls[0].args[0]).toMatch 'Could not observe path'
+      expect(console.warn.calls[0].args[0]).toMatch 'this/do/not/exist'
