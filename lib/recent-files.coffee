@@ -20,6 +20,12 @@ class RecentFiles
     @_addPath item?.getPath?()
     @_removeOverflow()
 
+  setFiles: (files = {}) ->
+    @_files = files
+
+  getFiles: ->
+    _.clone @_files
+
   pathsSortedByLastUsage: ->
     _.sortBy @_paths(), (path) =>
       -@_files[path]

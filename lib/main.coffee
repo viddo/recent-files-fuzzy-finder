@@ -7,17 +7,18 @@ module.exports =
 
   activate: (state) ->
     @configSubscription = atom.config.observe 'recent-files-fuzzy-finder.maxFilesToRemember', (val) =>
-      @createRecentFiles(val).setMaxFilesToRemember(val)
+      @createRecentFiles(val, state).setMaxFilesToRemember(val)
 
     atom.commands.add 'atom-workspace', {
       'recent-files-fuzzy-finder:toggle-finder': => @createRecentFilesView().toggle()
       'recent-files-fuzzy-finder:remove-closed-files': => @recentFiles.removeClosed()
     }
 
-  createRecentFiles: (maxFilesToRemember)->
+  createRecentFiles: (maxFilesToRemember, state)->
     unless @recentFiles?
       RecentFiles = require './recent-files'
       @recentFiles = new RecentFiles(maxFilesToRemember)
+      @recentFiles.setFiles state?.files
       WorkspaceObserver = require './workspace-observer'
       @workspaceObserver = new WorkspaceObserver(@recentFiles)
     @recentFiles
@@ -27,6 +28,9 @@ module.exports =
       RecentFilesView = require './recent-files-view'
       @recentFilesView = new RecentFilesView(@recentFiles)
     @recentFilesView
+
+  serialize: ->
+    { files: @recentFiles.getFiles() }
 
   deactivate: ->
     if @recentFilesView?
