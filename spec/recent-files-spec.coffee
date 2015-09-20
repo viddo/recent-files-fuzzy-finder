@@ -2,11 +2,11 @@ _ = require 'underscore-plus'
 RecentFiles = require '../lib/recent-files'
 
 describe 'Recentfiles', ->
-  [recentFiles, maxFilesToRemember]= []
+  [recentFiles]= []
 
   beforeEach ->
-    maxFilesToRemember = 10
-    recentFiles = new RecentFiles(maxFilesToRemember)
+    recentFiles = new RecentFiles
+    recentFiles.setMaxFilesToRemember(10)
 
   it 'will only allow to add files up to the defined max files', ->
     for i in [1..30]

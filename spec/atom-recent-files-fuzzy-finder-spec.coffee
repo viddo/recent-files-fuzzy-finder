@@ -51,6 +51,32 @@ describe "RecentFilesFuzzyFinder", ->
           waitsForPromise ->
             atom.workspace.open 'sample.txt'
 
+        describe 'serialize/deserialize', ->
+          [pack] = []
+
+          beforeEach ->
+            paneItem.destroy() for paneItem in atom.workspace.getPaneItems()
+            atom.packages.deactivatePackage('recent-files-fuzzy-finder')
+
+          it "restores data when cfg restore last session is set", ->
+            waitsForPromise ->
+              atom.config.set('recent-files-fuzzy-finder.restoreSession', true)
+              atom.packages.activatePackage('recent-files-fuzzy-finder').then (p) ->
+                pack = p
+            runs ->
+              restoredPaths = pack.mainModule.recentFiles.pathsSortedByLastUsage()
+              expect(restoredPaths.length).toEqual 2
+              expect(restoredPaths[0]).toContain 'sample.txt'
+              expect(restoredPaths[1]).toContain 'sample.js'
+
+          it "doesn't restore data by default", ->
+            waitsForPromise ->
+              atom.packages.activatePackage('recent-files-fuzzy-finder').then (p) ->
+                pack = p
+            runs ->
+              restoredPaths = pack.mainModule.recentFiles.pathsSortedByLastUsage()
+              expect(restoredPaths).toEqual []
+
         it "shows the FuzzyFinder if it isn't showing, or hides it and returns focus to the active editor", ->
           expect(atom.workspace.panelForItem(recentFilesView)).toBeNull()
           atom.workspace.getActivePane().splitRight(copyActiveItem: true)

@@ -3,10 +3,19 @@ fs = require 'fs-plus'
 
 module.exports =
 class RecentFiles
-  constructor: (maxFilesToRemember) ->
+
+  atom.deserializers.add(this)
+  @deserialize: ({data}) -> new RecentFiles(data)
+  serialize: ->
+    {
+      deserializer: 'RecentFiles'
+      data: @_files
+    }
+
+  constructor: (@_files) ->
     @_addsCount = 0
-    @_files = {} # path => integer (count value when added)
-    @_maxFilesToRemember = maxFilesToRemember
+    @_files ||= {} # path => integer (addsCount value at the time of path being added, used for sorting)
+    @_maxFilesToRemember = 1000000
 
     for path in @_openPaths()
       @_addPath(path)
@@ -33,9 +42,6 @@ class RecentFiles
         fs.stat path, (err, stats) =>
           @_removeByPaths([path]) if err
       )(path)
-
-  dispose: ->
-    @_removeByPaths @_paths()
 
   _removeByPaths: (paths) ->
     for path in paths
