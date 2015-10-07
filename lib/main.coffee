@@ -21,7 +21,6 @@ module.exports =
   createRecentFiles: (state )->
     unless @recentFiles?
       RecentFiles = require './recent-files'
-      debugger
       if atom.config.get('recent-files-fuzzy-finder.restoreSession')
         @recentFiles = atom.deserializers.deserialize(state)
       @recentFiles ||= new RecentFiles
