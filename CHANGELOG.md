@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.2.1] - 2015-10-07
+### Fixed
+- Removed a debugger call #9
+
 ## [0.2.0] - 2015-09-20
 ### Added
 - Add setting to remember recently used files between sessions, solves #1 and #6
