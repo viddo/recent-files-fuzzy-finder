@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.2.2] - 2015-11-16
+### Fixed
+- Failed to rebuild/clean install on Atom v1.2.0 #11
+
 ## [0.2.1] - 2015-10-07
 ### Fixed
 - Removed a debugger call #9
