@@ -14,7 +14,7 @@ BTW, this plays very well in combination with [zentabs](https://atom.io/packages
 ## Usage
 Open the recent files finder through `alt-T` (i.e. `alt+shift+t`).
 
-Since this plugin basically is the an improved buffer list, I  recommend to override the default buffer list shortcut since its more comfortable to use:
+Since this plugin basically is an improved buffer list, I  recommend to override the default buffer list shortcut since its more comfortable to use:
 
 ```coffee
 # ~/.atom/keymap.cson
