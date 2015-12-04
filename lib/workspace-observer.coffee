@@ -1,5 +1,4 @@
-{CompositeDisposable} = require 'atom'
-{Directory} = require 'pathwatcher'
+{CompositeDisposable, Directory} = require 'atom'
 
 module.exports =
 class WorkspaceObserver

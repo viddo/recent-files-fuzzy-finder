@@ -48,12 +48,4 @@ These are the configuration values set by default, if you want to you can overri
 
 ## Development
 
-The dependency [pathwatcher](https://github.com/atom/node-pathwatcher)) is required to be built using a matching version of node.js that [Atom uses](https://github.com/atom/atom/tree/master/docs/build-instructions), so before running `npm install` make sure you're using a node 1.x version that matches theirs.
-
-(Assuming a unix system) I recommend [nvm](https://github.com/creationix/nvm):
-
-```bash
-nvm install iojs
-nvm use iojs
-npm install
-```
+`npm install` and read [CONTRIBUTING.md](CONTRIBUTING.md)
