@@ -12,13 +12,13 @@ class RecentFiles
       data: @_files
     }
 
-  constructor: (@_files) ->
+  constructor: (prevFiles = {}) ->
     @_addsCount = 0
-    @_files ||= {} # path => integer (addsCount value at the time of path being added, used for sorting)
+    @_files = {} # path => integer (addsCount value at the time of path being added, used for sorting)
     @_maxFilesToRemember = 1000000
 
-    for path in @_openPaths()
-      @_addPath(path)
+    @_addPath(path) for path of prevFiles
+    @_addPath(path) for path in @_openPaths()
     @_removeOverflow()
 
   setMaxFilesToRemember: (newValue) ->
