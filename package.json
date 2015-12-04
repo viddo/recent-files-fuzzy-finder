@@ -9,6 +9,7 @@
     "atom": ">=1.2.0 <2.0.0"
   },
   "devDependencies": {
+    "coffeelint": "1.14.1",
     "temp": "0.8.3",
     "wrench": "1.5.8"
   },

@@ -52,10 +52,10 @@ class RecentFiles
     _.keys(@_files)
 
   _addPath: (path) ->
-    if path? and !@_isTrashed(path)
+    if path? and not @_isTrashed(path)
       @_files[path] = @_addsCount++
 
-  _removeOverflow: () ->
+  _removeOverflow: ->
     @_removeByPaths @pathsSortedByLastUsage().slice(@_maxFilesToRemember)
 
   _isTrashed: (path) ->
@@ -63,5 +63,5 @@ class RecentFiles
 
   _openPaths: ->
     _.chain atom.workspace.getTextEditors()
-      .map (editor) => editor.getPath()
+      .map (editor) -> editor.getPath()
       .compact().value()

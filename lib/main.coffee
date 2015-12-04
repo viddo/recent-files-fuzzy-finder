@@ -18,7 +18,7 @@ module.exports =
       'recent-files-fuzzy-finder:remove-closed-files': => @recentFiles.removeClosed()
     }
 
-  createRecentFiles: (state )->
+  createRecentFiles: (state) ->
     unless @recentFiles?
       RecentFiles = require './recent-files'
       if atom.config.get('recent-files-fuzzy-finder.restoreSession')

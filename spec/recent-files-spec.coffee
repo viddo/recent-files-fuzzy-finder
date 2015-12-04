@@ -15,7 +15,7 @@ describe 'Recentfiles', ->
 
     recentFiles.addFromPaneItem getPath: -> 'a'
     recentFiles.addFromPaneItem getPath: -> 'b'
-    expect(recentFiles.pathsSortedByLastUsage()).toEqual _.union(['b','a'], ("#{i}" for i in [30...22]))
+    expect(recentFiles.pathsSortedByLastUsage()).toEqual _.union(['b', 'a'], ("#{i}" for i in [30...22]))
 
     recentFiles.setMaxFilesToRemember(4)
-    expect(recentFiles.pathsSortedByLastUsage()).toEqual ['b','a','30', '29']
+    expect(recentFiles.pathsSortedByLastUsage()).toEqual ['b', 'a', '30', '29']

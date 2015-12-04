@@ -5,7 +5,7 @@ module.exports =
 class WorkspaceObserver
   constructor: (@_recentFiles) ->
     @_workspaceObservers = new CompositeDisposable
-    @_workspaceObservers.add atom.workspace.onDidDestroyPaneItem ({ item }) => @_recentFiles.addFromPaneItem(item)
+    @_workspaceObservers.add atom.workspace.onDidDestroyPaneItem ({item}) => @_recentFiles.addFromPaneItem(item)
     @_workspaceObservers.add atom.workspace.onDidChangeActivePaneItem (item) => @_recentFiles.addFromPaneItem(item)
     @_workspaceObservers.add atom.project.onDidChangePaths => @_updateProjectDirectoryObservers()
 

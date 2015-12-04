@@ -174,7 +174,7 @@ describe "RecentFilesFuzzyFinder", ->
 
       waitsFor "file to be deleted", 300, ->
         dispatchCommand('toggle-finder')
-        _.pluck(recentFilesView.list.find('li > div.file'), 'outerText').length == 1
+        _.pluck(recentFilesView.list.find('li > div.file'), 'outerText').length is 1
 
       runs ->
         expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample.js']
