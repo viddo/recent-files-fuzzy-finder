@@ -2,7 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.2.6] - 201x-xx-xx
+## [0.x.x] - 201x-xx-xx
+### Placeholder
+
+## [0.2.4] - 2015-12-04
+### Fixed
+- Restore addsCount after Atom is (re)started, so files appear in the expected sort order; hopefully solves #8
 
 ## [0.2.3] - 2015-12-04
 ### Changed
