@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.2.6] - 201x-xx-xx
+
+## [0.2.3] - 2015-12-04
+### Changed
+- Require [Directory](https://atom.io/docs/api/v1.2.4/Directory) model directly from `atom` instead of having it as custom dependency
+- Added [coffeelint](http://www.coffeelint.org/) to keep code style consistent
+- Fixated package dependency versions to avoid bad surprises
+
 ## [0.2.2] - 2015-11-16
 ### Fixed
 - Failed to rebuild/clean install on Atom v1.2.0 #11
@@ -28,7 +36,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [keepachan
 
 ## [0.1.1] - 2015-03-19
 ### Fixed
-= require using path join instead of forward-slashes
+- require using path join instead of forward-slashes
 
 ## [0.1.0] - 2015-03-08
 ### Added
