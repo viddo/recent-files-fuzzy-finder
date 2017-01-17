@@ -16,6 +16,8 @@ module.exports =
     atom.commands.add 'atom-workspace', {
       'recent-files-fuzzy-finder:toggle-finder': => @createRecentFilesView().toggle()
       'recent-files-fuzzy-finder:remove-closed-files': => @recentFiles.removeClosed()
+      'recent-files-fuzzy-finder:select-next-item': => @createRecentFilesView().selectNextItemView()
+      'recent-files-fuzzy-finder:confirm-selection': => @createRecentFilesView().confirmSelection()
     }
 
   createRecentFiles: (state) ->
