@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.x.x] - 201x-xx-xx
+## [x.y.z] - 201y-mm-dd
+
+## [0.3.0] - 2017-01-18
 ### Added
 - #18 Expose commands to control RecentFilesView selection
 - Lint styles can now be validated through `npm run lint`
