@@ -1,6 +1,8 @@
-# Recent files fuzzy finder Atom package
+# Recent files fuzzy finder Atom package [![Travis Build Status](http://travis-ci.org/viddo/recent-files-fuzzy-finder.png?branch=master)](http://travis-ci.org/viddo/recent-files-fuzzy-finder)
 
 Quickly find recently opened files through the default [Fuzzy Finder](https://github.com/atom/fuzzy-finder) in [Atom](https://atom.io/).
+
+See the [changelog](CHANGELOG.md) for what have changed recently. :rocket:
 
 ![demo](https://cloud.githubusercontent.com/assets/978461/6547149/df374dd4-c5cf-11e4-9523-fd892b6ec3e5.gif)
 
@@ -23,6 +25,18 @@ Since this plugin basically is an improved buffer list, I  recommend to override
 ```
 
 You can also clear closed files from the list by calling the command `recent-files-fuzzy-finder:remove-closed-files` (useful when finished on some task and committed changed files).
+
+Thanks to @forceuser #18 you can also get a Netbeans-like behavior by [customizing your keybindings](http://flight-manual.atom.io/using-atom/sections/basic-customization/#customizing-keybindings):
+
+```coffeescript
+'atom-workspace':
+  'ctrl-tab': 'recent-files-fuzzy-finder:toggle-finder'
+  'ctrl-tab ^ctrl': 'unset!'
+'.recent-files-fuzzy-finder':
+  'ctrl-tab': 'recent-files-fuzzy-finder:select-next-item'
+  'ctrl-escape': 'recent-files-fuzzy-finder:toggle-finder'
+  '^ctrl': 'recent-files-fuzzy-finder:confirm-selection'
+```
 
 ### Behavior
 - The files are listed in order of last usage.
@@ -48,4 +62,7 @@ These are the configuration values set by default, if you want to you can overri
 
 ## Development
 
-`npm install` and read [CONTRIBUTING.md](CONTRIBUTING.md)
+- Read [CONTRIBUTING.md](CONTRIBUTING.md)
+- `npm install` for dependencies
+- `npm run lint` to check that your changes follow the styles, [see coffeelint.json](./coffeelint.json)
+- `apm test` to run tests in the console

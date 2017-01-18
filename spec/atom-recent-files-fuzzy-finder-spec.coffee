@@ -1,9 +1,8 @@
-path = require 'path'
 _ = require 'underscore-plus'
-fs = require 'fs-plus'
-temp = require 'temp'
-wrench = require 'wrench'
+fs = require 'fs-extra'
+path = require 'path'
 shell = require 'shell'
+temp = require 'temp'
 
 describe "RecentFilesFuzzyFinder", ->
   [rootDir1, rootDir2] = []
@@ -15,16 +14,16 @@ describe "RecentFilesFuzzyFinder", ->
 
     fixturesPath = atom.project.getPaths()[0]
 
-    wrench.copyDirSyncRecursive(
+    fs.copySync(
       path.join(fixturesPath, "root-dir1"),
       rootDir1,
-      forceDelete: true
+      overwrite: true
     )
 
-    wrench.copyDirSyncRecursive(
+    fs.copySync(
       path.join(fixturesPath, "root-dir2"),
       rootDir2,
-      forceDelete: true
+      overwrite: true
     )
 
     atom.project.setPaths([rootDir1, rootDir2])
@@ -178,13 +177,3 @@ describe "RecentFilesFuzzyFinder", ->
 
       runs ->
         expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample.js']
-
-  describe 'when a non-existing path is added', ->
-    beforeEach ->
-      spyOn(console, 'warn')
-      atom.project.setPaths([rootDir1, rootDir2, 'this/do/not/exist'])
-
-    it 'do not watch that directory', ->
-      expect(console.warn).toHaveBeenCalled()
-      expect(console.warn.calls[0].args[0]).toMatch 'Could not observe path'
-      expect(console.warn.calls[0].args[0]).toMatch 'this/do/not/exist'

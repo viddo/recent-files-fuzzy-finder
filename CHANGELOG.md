@@ -3,7 +3,18 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
 ## [0.x.x] - 201x-xx-xx
-### Placeholder
+### Added
+- #18 Expose commands to control RecentFilesView selection
+- Lint styles can now be validated through `npm run lint`
+
+### Changed
+- Updated dependencies to latest versions
+
+### Fixed
+- Fix test case broken on master (Atom handled it internally nowadays)
+
+### Removed
+- Unused dependency, `fs-plus`
 
 ## [0.2.4] - 2015-12-04
 ### Fixed
