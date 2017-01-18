@@ -26,6 +26,18 @@ Since this plugin basically is an improved buffer list, I  recommend to override
 
 You can also clear closed files from the list by calling the command `recent-files-fuzzy-finder:remove-closed-files` (useful when finished on some task and committed changed files).
 
+Thanks to @forceuser #18 you can also get a Netbeans-like behavior by [customizing your keybindings](http://flight-manual.atom.io/using-atom/sections/basic-customization/#customizing-keybindings):
+
+```coffeescript
+'atom-workspace':
+  'ctrl-tab': 'recent-files-fuzzy-finder:toggle-finder'
+  'ctrl-tab ^ctrl': 'unset!'
+'.recent-files-fuzzy-finder':
+  'ctrl-tab': 'recent-files-fuzzy-finder:select-next-item'
+  'ctrl-escape': 'recent-files-fuzzy-finder:toggle-finder'
+  '^ctrl': 'recent-files-fuzzy-finder:confirm-selection'
+```
+
 ### Behavior
 - The files are listed in order of last usage.
 - Current file is excluded from the list.
