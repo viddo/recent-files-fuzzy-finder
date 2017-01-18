@@ -26,7 +26,7 @@ Since this plugin basically is an improved buffer list, I  recommend to override
 
 You can also clear closed files from the list by calling the command `recent-files-fuzzy-finder:remove-closed-files` (useful when finished on some task and committed changed files).
 
-Thanks to @forceuser #18 you can also get a Netbeans-like behavior by [customizing your keybindings](http://flight-manual.atom.io/using-atom/sections/basic-customization/#customizing-keybindings):
+Thanks to [@forceuser](https://github.com/forceuser) [#18](https://github.com/viddo/recent-files-fuzzy-finder/pull/18) you can also get a Netbeans-like behavior by [customizing your keybindings](http://flight-manual.atom.io/using-atom/sections/basic-customization/#customizing-keybindings):
 
 ```coffeescript
 'atom-workspace':
