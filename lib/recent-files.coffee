@@ -1,5 +1,5 @@
 _ = require 'underscore-plus'
-fs = require 'fs-plus'
+fs = require 'fs'
 
 module.exports =
 class RecentFiles

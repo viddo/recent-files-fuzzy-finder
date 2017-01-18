@@ -1,9 +1,8 @@
-path = require 'path'
 _ = require 'underscore-plus'
-fs = require 'fs-plus'
-temp = require 'temp'
-wrench = require 'wrench'
+fs = require 'fs-extra'
+path = require 'path'
 shell = require 'shell'
+temp = require 'temp'
 
 describe "RecentFilesFuzzyFinder", ->
   [rootDir1, rootDir2] = []
@@ -15,16 +14,16 @@ describe "RecentFilesFuzzyFinder", ->
 
     fixturesPath = atom.project.getPaths()[0]
 
-    wrench.copyDirSyncRecursive(
+    fs.copySync(
       path.join(fixturesPath, "root-dir1"),
       rootDir1,
-      forceDelete: true
+      overwrite: true
     )
 
-    wrench.copyDirSyncRecursive(
+    fs.copySync(
       path.join(fixturesPath, "root-dir2"),
       rootDir2,
-      forceDelete: true
+      overwrite: true
     )
 
     atom.project.setPaths([rootDir1, rootDir2])
