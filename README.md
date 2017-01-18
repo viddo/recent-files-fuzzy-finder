@@ -1,4 +1,4 @@
-# Recent files fuzzy finder Atom package
+# Recent files fuzzy finder Atom package [![Travis Build Status](http://travis-ci.org/viddo/recent-files-fuzzy-finder.png?branch=master)](http://travis-ci.org/viddo/recent-files-fuzzy-finder)
 
 Quickly find recently opened files through the default [Fuzzy Finder](https://github.com/atom/fuzzy-finder) in [Atom](https://atom.io/).
 
