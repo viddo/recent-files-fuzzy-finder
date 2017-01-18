@@ -2,6 +2,8 @@
 
 Quickly find recently opened files through the default [Fuzzy Finder](https://github.com/atom/fuzzy-finder) in [Atom](https://atom.io/).
 
+See the [changelog](CHANGELOG.md) for what have changed recently. :rocket:
+
 ![demo](https://cloud.githubusercontent.com/assets/978461/6547149/df374dd4-c5cf-11e4-9523-fd892b6ec3e5.gif)
 
 ## Why?
