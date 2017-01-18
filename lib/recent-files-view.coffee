@@ -6,6 +6,8 @@ module.exports =
 class RecentFilesView extends FuzzyFinderView
   initialize: (@recentFiles) ->
     super
+    
+    @addClass('recent-files-fuzzy-finder')
 
   toggle: ->
     if @panel?.isVisible()
