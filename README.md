@@ -48,4 +48,7 @@ These are the configuration values set by default, if you want to you can overri
 
 ## Development
 
-`npm install` and read [CONTRIBUTING.md](CONTRIBUTING.md)
+- Read [CONTRIBUTING.md](CONTRIBUTING.md)
+- `npm install` for dependencies
+- `npm run lint` to check that your changes follow the styles, [see coffeelint.json](./coffeelint.json)
+- `apm test` to run tests in the console
