@@ -2,6 +2,7 @@ path = require 'path'
 packagePath = atom.packages.resolvePackagePath('fuzzy-finder')
 FuzzyFinderView = require path.join(packagePath, 'lib', 'fuzzy-finder-view')
 
+# This is only intended to be used for older version of fuzzy-finder
 module.exports =
 class RecentFilesView extends FuzzyFinderView
   initialize: (@recentFiles) ->
