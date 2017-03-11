@@ -4,8 +4,8 @@ path = require 'path'
 shell = require 'shell'
 temp = require 'temp'
 
-unless require('../lib/fuzzy-finder-version-satisfied')
-  describe "RecentFilesFuzzyFinder (deprecated)", ->
+if require('../lib/fuzzy-finder-version-satisfied')
+  describe "RecentFilesFuzzyFinder", ->
     [rootDir1, rootDir2] = []
     [recentFilesView, workspaceElement] = []
 
@@ -34,6 +34,8 @@ unless require('../lib/fuzzy-finder-version-satisfied')
       waitsForPromise ->
         atom.workspace.open(path.join(rootDir1, 'sample.js'))
 
+      waitsForPromise ->
+        atom.packages.activatePackage('fuzzy-finder')
       waitsForPromise ->
         atom.packages.activatePackage('recent-files-fuzzy-finder').then (pack) ->
           recentFilesFuzzyFinder = pack.mainModule
@@ -85,49 +87,59 @@ unless require('../lib/fuzzy-finder-version-satisfied')
 
             expect(atom.views.getView(editor3)).toHaveFocus()
 
-            dispatchCommand('toggle-finder')
-            expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-            expect(workspaceElement.querySelector('.fuzzy-finder')).toHaveFocus()
-            recentFilesView.filterEditorView.getModel().insertText('this should not show up next time we toggle')
+            waitsForPromise ->
+              recentFilesView.toggle()
+            runs ->
+              expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
+              expect(workspaceElement.querySelector('.fuzzy-finder')).toHaveFocus()
+              recentFilesView.selectListView.refs.queryEditor.insertText('this should not show up next time we toggle')
 
-            dispatchCommand('toggle-finder')
-            expect(atom.views.getView(editor3)).toHaveFocus()
-            expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe false
+            waitsForPromise ->
+              recentFilesView.toggle()
+            runs ->
+              expect(atom.views.getView(editor3)).toHaveFocus()
+              expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe false
 
-            dispatchCommand('toggle-finder')
-            expect(recentFilesView.filterEditorView.getText()).toBe ''
+            waitsForPromise ->
+              recentFilesView.toggle()
+            runs ->
+              expect(recentFilesView.selectListView.refs.queryEditor.getText()).toBe ''
 
           it "lists the paths of recently opened files, sorted by most recent usage but without currently active file", ->
             waitsForPromise ->
               atom.workspace.open 'sample-with-tabs.coffee'
-
+            waitsForPromise ->
+              recentFilesView.toggle()
             runs ->
-              dispatchCommand('toggle-finder')
               expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-              expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample.txt', 'sample.js']
-              dispatchCommand('toggle-finder')
+              expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample.txt', 'sample.js']
+
+            waitsForPromise ->
+              recentFilesView.toggle()
+            runs ->
               expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe false
 
             waitsForPromise ->
               atom.workspace.open 'sample.txt'
-
+            waitsForPromise ->
+              recentFilesView.toggle()
             runs ->
-              dispatchCommand('toggle-finder')
               expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-              expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.js']
-              expect(recentFilesView.list.children().first()).toHaveClass 'selected'
+              expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.js']
+              # expect(recentFilesView.list.children().first()).toHaveClass 'selected'
+              expect(recentFilesView.element.querySelectorAll('li')[0]).toHaveClass 'selected'
 
               paneItem.destroy() for paneItem in atom.workspace.getPaneItems()
-              expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.js']
+              expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.js']
 
           it "ignores anonymous files", ->
             waitsForPromise ->
               atom.workspace.open('unsaved-file')
-
+            waitsForPromise ->
+              recentFilesView.toggle()
             runs ->
-              dispatchCommand('toggle-finder')
               expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-              expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).not.toContain ['unsaved-file']
+              expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).not.toContain ['unsaved-file']
 
     describe "call remove closed files", ->
       describe "when there are pane items with paths", ->
@@ -141,24 +153,31 @@ unless require('../lib/fuzzy-finder-version-satisfied')
 
         it "removes closed files", ->
           paneItem.destroy() for paneItem in atom.workspace.getPaneItems()
-          dispatchCommand('toggle-finder')
-          expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-          expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.txt', 'sample.js']
-          dispatchCommand('toggle-finder')
 
-          dispatchCommand('remove-closed-files')
-          dispatchCommand('toggle-finder')
-          expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe false
+          waitsForPromise ->
+            recentFilesView.toggle()
+          runs ->
+            expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
+            expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.txt', 'sample.js']
+          waitsForPromise ->
+            recentFilesView.toggle()
+          runs ->
+            dispatchCommand('remove-closed-files')
+
+          waitsForPromise ->
+            recentFilesView.toggle()
+          runs ->
+            expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe false
 
           waitsForPromise ->
             atom.workspace.open 'sample.js'
           waitsForPromise ->
             atom.workspace.open('new-file')
-
+          waitsForPromise ->
+            recentFilesView.toggle()
           runs ->
-            dispatchCommand('toggle-finder')
             expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-            expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample.js']
+            expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample.js']
 
     describe 'delete a file', ->
       beforeEach ->
@@ -173,8 +192,8 @@ unless require('../lib/fuzzy-finder-version-satisfied')
         shell.moveItemToTrash path.join(rootDir1, 'sample.txt')
 
         waitsFor "file to be deleted", 300, ->
-          dispatchCommand('toggle-finder')
-          _.pluck(recentFilesView.list.find('li > div.file'), 'outerText').length is 1
+          recentFilesView.toggle()
+          _.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText').length is 1
 
         runs ->
-          expect(_.pluck(recentFilesView.list.find('li > div.file'), 'outerText')).toEqual ['sample.js']
+          expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample.js']
