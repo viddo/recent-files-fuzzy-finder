@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
 ## [x.y.z] - 201y-mm-dd
+
+## [0.3.1] - 2017-03-11
 ### Fixed
 - Uncaught TypeError: Class constructor FuzzyFinderView cannot be invoked without 'new' #20
 
