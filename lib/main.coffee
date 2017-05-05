@@ -1,4 +1,4 @@
-isNewFuzzyFinder = require('./fuzzy-finder-version-satisfied');
+isNewFuzzyFinder = require('./fuzzy-finder-version-satisfied')
 module.exports =
   config:
     maxFilesToRemember:
