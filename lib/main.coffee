@@ -1,4 +1,3 @@
-isNewFuzzyFinder = require('./fuzzy-finder-version-satisfied')
 module.exports =
   config:
     maxFilesToRemember:
@@ -17,8 +16,8 @@ module.exports =
     atom.commands.add 'atom-workspace', {
       'recent-files-fuzzy-finder:toggle-finder': => @createRecentFilesView().toggle()
       'recent-files-fuzzy-finder:remove-closed-files': => @recentFiles.removeClosed()
-      'recent-files-fuzzy-finder:select-next-item': => if isNewFuzzyFinder then @createRecentFilesView().selectListView.selectNext() else @createRecentFilesView().selectNextItemView()
-      'recent-files-fuzzy-finder:confirm-selection': => if isNewFuzzyFinder then @createRecentFilesView().selectListView.confirmSelection() else @createRecentFilesView().confirmSelection()
+      'recent-files-fuzzy-finder:select-next-item': => @createRecentFilesView().selectListView.selectNext()
+      'recent-files-fuzzy-finder:confirm-selection': => @createRecentFilesView().selectListView.confirmSelection()
     }
 
   createRecentFiles: (state) ->
@@ -33,11 +32,7 @@ module.exports =
 
   createRecentFilesView: ->
     unless @recentFilesView?
-      RecentFilesView = if isNewFuzzyFinder
-        require './recent-files-view'
-      else
-        require './recent-files-view-old'
-
+      RecentFilesView = require './recent-files-view'
       @recentFilesView = new RecentFilesView(@recentFiles)
     @recentFilesView
 

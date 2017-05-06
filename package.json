@@ -6,7 +6,7 @@
   "repository": "https://github.com/viddo/recent-files-fuzzy-finder",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.2.0 <2.0.0"
+    "atom": ">=1.16.0 <2.0.0"
   },
   "devDependencies": {
     "coffeelint": "1.16.0",
