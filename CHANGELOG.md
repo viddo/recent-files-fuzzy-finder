@@ -3,11 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
 ## [unreleased]
+
+## [0.3.2] - 2017-05-06
+### Changed
+- Removed check for older Atom versions; new version will require latest Atom stable release (>=1.16.0) #23
+
 ### Fixed
 - Make selection operations: select-next-item and confirm-selection work again #22
-
-### Changed
-- Removed check for older Atom versions; new version will require latest Atom stable release (>=1.16.0)
 
 ## [0.3.1] - 2017-03-11
 ### Fixed
