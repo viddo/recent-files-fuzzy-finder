@@ -21,9 +21,9 @@ script:
   - ./build-package.sh
 
 notifications:
-  email:
-    on_success: never
-    on_failure: change
+  email: false
+    # on_success: never
+    # on_failure: change
 
 # branches:
 #   only:
