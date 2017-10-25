@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
 ## [unreleased]
+### Changed
+- Updates all deps [#25](https://github.com/viddo/recent-files-fuzzy-finder/pull/25)
 
 ## [0.3.2] - 2017-05-06
 ### Changed
