@@ -1,7 +1,6 @@
 _ = require 'underscore-plus'
 fs = require 'fs-extra'
 path = require 'path'
-shell = require 'shell'
 temp = require 'temp'
 
 describe "RecentFilesFuzzyFinder", ->
@@ -188,9 +187,9 @@ describe "RecentFilesFuzzyFinder", ->
         atom.workspace.open 'sample-with-tabs.coffee'
 
     it 'does not show the deleted file anymore', ->
-      shell.moveItemToTrash path.join(rootDir1, 'sample.txt')
+      fs.unlink path.join(rootDir1, 'sample.txt')
 
-      waitsFor "file to be deleted", 300, ->
+      waitsFor "file to be deleted", 500, ->
         recentFilesView.toggle()
         _.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText').length is 1
 
