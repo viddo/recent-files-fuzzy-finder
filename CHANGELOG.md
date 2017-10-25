@@ -6,20 +6,23 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [keepachan
 ### Changed
 - Updates all deps [#25](https://github.com/viddo/recent-files-fuzzy-finder/pull/25)
 
+### Removed
+- `semver` dependency, no longer used since [#23](https://github.com/viddo/recent-files-fuzzy-finder/pull/25)
+
 ## [0.3.2] - 2017-05-06
 ### Changed
-- Removed check for older Atom versions; new version will require latest Atom stable release (>=1.16.0) #23
+- Removed check for older Atom versions; new version will require latest Atom stable release (>=1.16.0) [#23](https://github.com/viddo/recent-files-fuzzy-finder/pull/23)
 
 ### Fixed
-- Make selection operations: select-next-item and confirm-selection work again #22
+- Make selection operations: select-next-item and confirm-selection work again [#22](https://github.com/viddo/recent-files-fuzzy-finder/pull/22)
 
 ## [0.3.1] - 2017-03-11
 ### Fixed
-- Uncaught TypeError: Class constructor FuzzyFinderView cannot be invoked without 'new' #20
+- Uncaught TypeError: Class constructor FuzzyFinderView cannot be invoked without 'new' [#20](https://github.com/viddo/recent-files-fuzzy-finder/pull/20)
 
 ## [0.3.0] - 2017-01-18
 ### Added
-- #18 Expose commands to control RecentFilesView selection
+- [#18](https://github.com/viddo/recent-files-fuzzy-finder/pull/18) Expose commands to control RecentFilesView selection
 - Lint styles can now be validated through `npm run lint`
 
 ### Changed
@@ -33,7 +36,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [keepachan
 
 ## [0.2.4] - 2015-12-04
 ### Fixed
-- Restore addsCount after Atom is (re)started, so files appear in the expected sort order; hopefully solves #8
+- Restore addsCount after Atom is (re)started, so files appear in the expected sort order; hopefully solves [#8](https://github.com/viddo/recent-files-fuzzy-finder/pull/8)
 
 ## [0.2.3] - 2015-12-04
 ### Changed
@@ -43,15 +46,15 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [keepachan
 
 ## [0.2.2] - 2015-11-16
 ### Fixed
-- Failed to rebuild/clean install on Atom v1.2.0 #11
+- Failed to rebuild/clean install on Atom v1.2.0 [#11](https://github.com/viddo/recent-files-fuzzy-finder/pull/11)
 
 ## [0.2.1] - 2015-10-07
 ### Fixed
-- Removed a debugger call #9
+- Removed a debugger call [#9](https://github.com/viddo/recent-files-fuzzy-finder/pull/9)
 
 ## [0.2.0] - 2015-09-20
 ### Added
-- Add setting to remember recently used files between sessions, solves #1 and #6
+- Add setting to remember recently used files between sessions, solves [#1](https://github.com/viddo/recent-files-fuzzy-finder/pull/1) and [#6](https://github.com/viddo/recent-files-fuzzy-finder/pull/6)
 
 ## [0.1.4] - 2015-06-22
 ### Fixed
