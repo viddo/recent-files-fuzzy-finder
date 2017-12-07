@@ -159,13 +159,21 @@ describe "RecentFilesFuzzyFinder", ->
           expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.txt', 'sample.js']
         waitsForPromise ->
           recentFilesView.toggle()
+
+        # should clear cache
         runs ->
           dispatchCommand('remove-closed-files')
 
+        # re-open
         waitsForPromise ->
           recentFilesView.toggle()
         runs ->
-          expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe false
+          expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
+          expect(recentFilesView.element.outerText.trim()).toContain 'No files'
+
+        # close again
+        waitsForPromise ->
+          recentFilesView.toggle()
 
         waitsForPromise ->
           atom.workspace.open 'sample.js'
