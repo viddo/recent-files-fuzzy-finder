@@ -5,9 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [keepachan
 ## [unreleased]
 ### Changed
 - Updates all deps [#25](https://github.com/viddo/recent-files-fuzzy-finder/pull/25)
+- Show view with empty message if there are no recently closed files [#26](https://github.com/viddo/recent-files-fuzzy-finder/pull/26)
 
 ### Removed
-- `semver` dependency, no longer used since [#23](https://github.com/viddo/recent-files-fuzzy-finder/pull/25)
+- Cleanup: `semver` dependency, no longer used, since [#23](https://github.com/viddo/recent-files-fuzzy-finder/pull/23)
 
 ## [0.3.2] - 2017-05-06
 ### Changed
