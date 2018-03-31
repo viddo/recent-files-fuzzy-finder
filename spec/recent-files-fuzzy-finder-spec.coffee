@@ -56,7 +56,8 @@ describe "RecentFilesFuzzyFinder", ->
 
           beforeEach ->
             paneItem.destroy() for paneItem in atom.workspace.getPaneItems()
-            atom.packages.deactivatePackage('recent-files-fuzzy-finder')
+            waitsForPromise ->
+              atom.packages.deactivatePackage('recent-files-fuzzy-finder')
 
           it "restores data when cfg restore last session is set", ->
             waitsForPromise ->
