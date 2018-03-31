@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
 ## [unreleased]
+### Changed
+- Make package compatible with new internal fuzzy-finder format as of Atom v1.126-beta [#31](https://github.com/viddo/recent-files-fuzzy-finder/pull/31)
 
 ## [0.4.0] - 2017-12-07
 ### Changed

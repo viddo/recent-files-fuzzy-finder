@@ -6,12 +6,14 @@ See the [changelog](CHANGELOG.md) for what have changed recently. :rocket:
 
 ![demo](https://cloud.githubusercontent.com/assets/978461/6547149/df374dd4-c5cf-11e4-9523-fd892b6ec3e5.gif)
 
+
 ## Why?
 The motivation is similar to [navigating to recently opened files](http://blog.jetbrains.com/webide/2013/02/navigating-between-files-in-the-ide-best-practices/) in the [Jetbrains IDEs](https://www.jetbrains.com/).
 
 Personally, I find it more useful to be able to quickly find recently opened files, than having to first check the buffer list and then search the whole project if wasn't already open.
 
 BTW, this plays very well in combination with [zentabs](https://atom.io/packages/zentabs) (_Keep your opened tabs below a maximum limit, closing the oldest one first_), so you don't have to close files manually so the tab bar is actually usable.
+
 
 ## Usage
 Open the recent files finder through `alt-T` (i.e. `alt+shift+t`).
@@ -38,10 +40,15 @@ Thanks to [@forceuser](https://github.com/forceuser) [#18](https://github.com/vi
   '^ctrl': 'recent-files-fuzzy-finder:confirm-selection'
 ```
 
-### Behavior
+### Features & Behavior
 - The files are listed in order of last usage.
 - Current file is excluded from the list.
 - The list of recent files is cyclic, i.e. if you have opened more files than the [amount of files to remember](#Configuration) (50 by default) the oldest files will be removed from the list.
+
+### Known issues, missing features, caveats, etc.?
+
+- Remote tabs of https://teletype.atom.io/ have not been tested, most likely won't work as expected. Was implemented & released in [fuzzy-finder v1.8.0](https://github.com/atom/fuzzy-finder/pull/335), [Atom v1.26](https://github.com/atom/atom/releases/tag/v1.26.0-beta0)
+
 
 ## Installation
  `apm install recent-files-fuzzy-finder` in a terminal.
@@ -59,6 +66,7 @@ These are the configuration values set by default, if you want to you can overri
 "recent-files-fuzzy-finder":
   maxFilesToRemember: 50
 ```
+
 
 ## Development
 
