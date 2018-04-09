@@ -65,18 +65,18 @@ describe "RecentFilesFuzzyFinder", ->
               atom.packages.activatePackage('recent-files-fuzzy-finder').then (p) ->
                 pack = p
             runs ->
-              restoredPaths = pack.mainModule.recentFiles.pathsSortedByLastUsage()
-              expect(restoredPaths.length).toEqual 2
-              expect(restoredPaths[0]).toContain 'sample.txt'
-              expect(restoredPaths[1]).toContain 'sample.js'
+              items = pack.mainModule.recentFiles.getItems()
+              expect(items.length).toEqual 2
+              expect(items[0].filePath).toContain 'sample.txt'
+              expect(items[1].filePath).toContain 'sample.js'
 
           it "doesn't restore data by default", ->
             waitsForPromise ->
               atom.packages.activatePackage('recent-files-fuzzy-finder').then (p) ->
                 pack = p
             runs ->
-              restoredPaths = pack.mainModule.recentFiles.pathsSortedByLastUsage()
-              expect(restoredPaths).toEqual []
+              items = pack.mainModule.recentFiles.getItems()
+              expect(items).toEqual []
 
         it "shows the FuzzyFinder if it isn't showing, or hides it and returns focus to the active editor", ->
           expect(atom.workspace.panelForItem(recentFilesView)).toBeNull()
@@ -139,6 +139,17 @@ describe "RecentFilesFuzzyFinder", ->
           runs ->
             expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
             expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).not.toContain ['unsaved-file']
+
+        it "open selected file upon confirm (enter)", ->
+          expect(atom.workspace.getActiveTextEditor().getPath()).toContain('sample.txt')
+          waitsForPromise ->
+            recentFilesView.toggle()
+          runs ->
+            dispatchCommand('confirm-selection')
+          waitsFor ->
+            atom.workspace.getActiveTextEditor().getPath().endsWith('sample.js')
+          runs ->
+            expect(atom.workspace.getTextEditors().length).toEqual(2)
 
   describe "call remove closed files", ->
     describe "when there are pane items with paths", ->
