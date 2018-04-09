@@ -1,4 +1,3 @@
-_ = require 'underscore-plus'
 fs = require 'fs-extra'
 path = require 'path'
 temp = require 'temp'
@@ -111,7 +110,8 @@ describe "RecentFilesFuzzyFinder", ->
             recentFilesView.toggle()
           runs ->
             expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-            expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample.txt', 'sample.js']
+            paths = Array.from(recentFilesView.element.querySelectorAll('li > div.file')).map (x) -> x.outerText
+            expect(paths).toEqual ['sample.txt', 'sample.js']
 
           waitsForPromise ->
             recentFilesView.toggle()
@@ -124,12 +124,13 @@ describe "RecentFilesFuzzyFinder", ->
             recentFilesView.toggle()
           runs ->
             expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-            expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.js']
-            # expect(recentFilesView.list.children().first()).toHaveClass 'selected'
+            paths = Array.from(recentFilesView.element.querySelectorAll('li > div.file')).map (x) -> x.outerText
+            expect(paths).toEqual ['sample-with-tabs.coffee', 'sample.js']
             expect(recentFilesView.element.querySelectorAll('li')[0]).toHaveClass 'selected'
 
             paneItem.destroy() for paneItem in atom.workspace.getPaneItems()
-            expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.js']
+            paths = Array.from(recentFilesView.element.querySelectorAll('li > div.file')).map (x) -> x.outerText
+            expect(paths).toEqual ['sample-with-tabs.coffee', 'sample.js']
 
         it "ignores anonymous files", ->
           waitsForPromise ->
@@ -138,7 +139,8 @@ describe "RecentFilesFuzzyFinder", ->
             recentFilesView.toggle()
           runs ->
             expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-            expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).not.toContain ['unsaved-file']
+            paths = Array.from(recentFilesView.element.querySelectorAll('li > div.file')).map (x) -> x.outerText
+            expect(paths).not.toContain ['unsaved-file']
 
         it "open selected file upon confirm (enter)", ->
           expect(atom.workspace.getActiveTextEditor().getPath()).toContain('sample.txt')
@@ -168,7 +170,8 @@ describe "RecentFilesFuzzyFinder", ->
           recentFilesView.toggle()
         runs ->
           expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-          expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample-with-tabs.coffee', 'sample.txt', 'sample.js']
+          paths = Array.from(recentFilesView.element.querySelectorAll('li > div.file')).map (x) -> x.outerText
+          expect(paths).toEqual ['sample-with-tabs.coffee', 'sample.txt', 'sample.js']
         waitsForPromise ->
           recentFilesView.toggle()
 
@@ -195,7 +198,8 @@ describe "RecentFilesFuzzyFinder", ->
           recentFilesView.toggle()
         runs ->
           expect(atom.workspace.panelForItem(recentFilesView).isVisible()).toBe true
-          expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample.js']
+          paths = Array.from(recentFilesView.element.querySelectorAll('li > div.file')).map (x) -> x.outerText
+          expect(paths).toEqual ['sample.js']
 
   describe 'delete a file', ->
     beforeEach ->
@@ -211,7 +215,8 @@ describe "RecentFilesFuzzyFinder", ->
 
       waitsFor "file to be deleted", 500, ->
         recentFilesView.toggle()
-        _.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText').length is 1
+        Array.from(recentFilesView.element.querySelectorAll('li > div.file')).length is 1
 
       runs ->
-        expect(_.pluck(Array.from(recentFilesView.element.querySelectorAll('li > div.file')), 'outerText')).toEqual ['sample.js']
+        paths = Array.from(recentFilesView.element.querySelectorAll('li > div.file')).map (x) -> x.outerText
+        expect(paths).toEqual ['sample.js']

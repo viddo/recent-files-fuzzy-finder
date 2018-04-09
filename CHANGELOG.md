@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [keepachan
 ### Fixed
 - Fix confirm selection working for +v1.26-beta when having multiple project folders open
 
+### Removed
+- `underscore-plus`, no longer necessary
+
 
 ## [0.5.0] - 2018-03-31
 ### Changed
