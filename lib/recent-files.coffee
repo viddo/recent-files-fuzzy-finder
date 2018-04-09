@@ -1,67 +1,64 @@
-_ = require 'underscore-plus'
 fs = require 'fs'
+
+TRASH_PATH_REGEX = /\.Trash/
 
 module.exports =
 class RecentFiles
 
   atom.deserializers.add(this)
-  @deserialize: ({data}) -> new RecentFiles(data)
+  @deserialize: ({data}) ->
+    new RecentFiles(data)
   serialize: ->
     {
       deserializer: 'RecentFiles'
-      data: @_files
+      data: @_items
+      version: RecentFiles.version
     }
+  @version: 2
 
-  constructor: (prevFiles = {}) ->
-    @_addsCount = 0
-    @_files = {} # path => integer (addsCount value at the time of path being added, used for sorting)
-    @_maxFilesToRemember = 1000000
-
-    @_addPath(path) for path of prevFiles
-    @_addPath(path) for path in @_openPaths()
+  constructor: (prevItems = []) ->
+    @_items = []
+    @_addItem(item) for item in prevItems.reverse().concat(@_openItems())
     @_removeOverflow()
 
   setMaxFilesToRemember: (newValue) ->
     @_maxFilesToRemember = newValue
     @_removeOverflow()
 
-  addFromPaneItem: (item) ->
-    @_addPath item?.getPath?()
-    @_removeOverflow()
+  addFromPaneItem: (paneItem) ->
+    if paneItem and paneItem.getPath
+      item =
+        filePath: paneItem.getPath()
+        uri: paneItem.getURI()
+      @_addItem(item)
+      @_removeOverflow()
 
-  pathsSortedByLastUsage: ->
-    _.sortBy @_paths(), (path) =>
-      -@_files[path]
+  getItems: ->
+    @_items.slice()
 
   removeClosed: ->
-    @_removeByPaths _.difference @_paths(), @_openPaths()
+    openURIs = @_openItems().map ({uri}) -> uri
+    @_items = @_items.filter ({uri}) -> openURIs.includes(uri)
 
   removeDeleted: ->
-    for path in @_paths()
-      ((path) =>
-        fs.stat path, (err, stats) =>
-          @_removeByPaths([path]) if err
-      )(path)
+    @_items.forEach ({filePath, uri}) =>
+      fs.stat filePath, (err, stats) =>
+        if err
+          @_items = @_items.filter (x) -> x.uri isnt uri
 
-  _removeByPaths: (paths) ->
-    for path in paths
-      @_files[path] = null
-      delete @_files[path]
-
-  _paths: ->
-    _.keys(@_files)
-
-  _addPath: (path) ->
-    if path? and not @_isTrashed(path)
-      @_files[path] = @_addsCount++
+  _addItem: (item) ->
+    if item and not @_isTrashed(item)
+      items = @_items.filter(({uri}) -> uri isnt item.uri)
+      items.unshift(item)
+      @_items = items
 
   _removeOverflow: ->
-    @_removeByPaths @pathsSortedByLastUsage().slice(@_maxFilesToRemember)
+    @_items = @_items.slice(0, @_maxFilesToRemember)
 
-  _isTrashed: (path) ->
-    /\.Trash/.test(path)
+  _isTrashed: ({filePath}) ->
+    TRASH_PATH_REGEX.test(filePath)
 
-  _openPaths: ->
-    _.chain atom.workspace.getTextEditors()
-      .map (editor) -> editor.getPath()
-      .compact().value()
+  _openItems: ->
+    atom.workspace.getTextEditors().map (x) ->
+      filePath: x.getPath()
+      uri: x.getURI()

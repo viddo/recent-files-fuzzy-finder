@@ -14,8 +14,7 @@
     "temp": "0.8.3"
   },
   "dependencies": {
-    "semver": "^5.5.0",
-    "underscore-plus": "1.6.6"
+    "semver": "^5.5.0"
   },
   "scripts": {
     "lint": "coffeelint lib spec",
