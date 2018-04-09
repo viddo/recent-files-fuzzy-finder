@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
 ## [unreleased]
+
+
+## [0.6.0] - 2018-04-08
 ### Fixed
 - Fix confirm selection working for +v1.26-beta when having multiple project folders open
 
