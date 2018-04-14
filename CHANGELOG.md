@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/) and [keepachangelog.com](http://keepachangelog.com/).
 
 ## [unreleased]
+### Fixed
+- Check that item is considered valid before adding it to recent items list [#33](https://github.com/viddo/recent-files-fuzzy-finder/issues/33)
 
 
 ## [0.6.0] - 2018-04-08
