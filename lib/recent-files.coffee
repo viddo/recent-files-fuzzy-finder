@@ -47,10 +47,16 @@ class RecentFiles
           @_items = @_items.filter (x) -> x.uri isnt uri
 
   _addItem: (item) ->
-    if item and not @_isTrashed(item)
-      items = @_items.filter(({uri}) -> uri isnt item.uri)
-      items.unshift(item)
-      @_items = items
+    if not item or not item.filePath or not item.uri or @_isTrashed(item)
+      try
+        serializedItem = JSON.stringify(item)
+      catch err
+        serializedItem = err
+      console.warn("[recent-files-fuzzy-finder] trying to add invalid item: #{serializedItem}")
+      return
+    items = @_items.filter(({uri}) -> uri isnt item.uri)
+    items.unshift(item)
+    @_items = items
 
   _removeOverflow: ->
     @_items = @_items.slice(0, @_maxFilesToRemember)
