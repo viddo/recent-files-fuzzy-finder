@@ -1,3 +1,5 @@
+{Disposable} = require('atom')
+
 module.exports =
   config:
     maxFilesToRemember:
@@ -32,20 +34,21 @@ module.exports =
 
   createRecentFilesView: ->
     unless @recentFilesView?
-      # metricsReporter
-      path = require('path')
-      packagePath = atom.packages.resolvePackagePath('fuzzy-finder')
-      ReporterProxy = require(path.join(packagePath, 'lib', 'reporter-proxy'))
-      @metricsReporter = new ReporterProxy
-      # view
       RecentFilesView = require './recent-files-view'
-      @recentFilesView = new RecentFilesView(@metricsReporter, @recentFiles)
+      @recentFilesView = new RecentFilesView(@getMetricsReporter(), @recentFiles)
     @recentFilesView
+
+  getMetricsReporter: ->
+    path = require('path')
+    packagePath = atom.packages.resolvePackagePath('fuzzy-finder')
+    ReporterProxy = require(path.join(packagePath, 'lib', 'reporter-proxy'))
+    @metricsReporter = new ReporterProxy
 
   # TODO maybe it's not wise to share metricsReporter with fuzzy package?
   consumeMetricsReporter: (metricsReporterService) ->
-    @metricsReporter.setReporter(metricsReporterService)
-    return new Disposable(() => @metricsReporter.unsetReporter())
+    metricsReporter = @getMetricsReporter()
+    metricsReporter.setReporter(metricsReporterService)
+    return new Disposable -> metricsReporter.unsetReporter()
 
   serialize: ->
     @recentFiles?.serialize()
