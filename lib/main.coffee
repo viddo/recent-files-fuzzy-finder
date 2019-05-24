@@ -1,5 +1,7 @@
 {Disposable} = require('atom')
 
+metricsReporterProxy = require('./dummy-reporter-proxy')
+
 module.exports =
   config:
     maxFilesToRemember:
@@ -35,14 +37,8 @@ module.exports =
   createRecentFilesView: ->
     unless @recentFilesView?
       RecentFilesView = require './recent-files-view'
-      @recentFilesView = new RecentFilesView(@getMetricsReporter(), @recentFiles)
+      @recentFilesView = new RecentFilesView(metricsReporterProxy, @recentFiles)
     @recentFilesView
-
-  getMetricsReporter: ->
-    path = require('path')
-    packagePath = atom.packages.resolvePackagePath('fuzzy-finder')
-    ReporterProxy = require(path.join(packagePath, 'lib', 'reporter-proxy'))
-    @metricsReporter = new ReporterProxy
 
   serialize: ->
     @recentFiles?.serialize()
