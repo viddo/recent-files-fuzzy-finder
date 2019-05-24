@@ -1,7 +1,5 @@
 {Disposable} = require('atom')
 
-metricsReporterProxy = require('./dummy-reporter-proxy')
-
 module.exports =
   config:
     maxFilesToRemember:
@@ -37,7 +35,7 @@ module.exports =
   createRecentFilesView: ->
     unless @recentFilesView?
       RecentFilesView = require './recent-files-view'
-      @recentFilesView = new RecentFilesView(metricsReporterProxy, @recentFiles)
+      @recentFilesView = new RecentFilesView(@recentFiles)
     @recentFilesView
 
   serialize: ->
