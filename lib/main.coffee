@@ -1,5 +1,3 @@
-{Disposable} = require('atom')
-
 module.exports =
   config:
     maxFilesToRemember:
