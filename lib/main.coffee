@@ -44,12 +44,6 @@ module.exports =
     ReporterProxy = require(path.join(packagePath, 'lib', 'reporter-proxy'))
     @metricsReporter = new ReporterProxy
 
-  # TODO maybe it's not wise to share metricsReporter with fuzzy package?
-  consumeMetricsReporter: (metricsReporterService) ->
-    metricsReporter = @getMetricsReporter()
-    metricsReporter.setReporter(metricsReporterService)
-    return new Disposable -> metricsReporter.unsetReporter()
-
   serialize: ->
     @recentFiles?.serialize()
 
