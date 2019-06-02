@@ -4,6 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [keepachan
 
 ## [unreleased]
 
+## [1.0.0] - 2019-06-02
+### Changed
+- Support Atom +v1.37
+- Update all deps [#37](https://github.com/viddo/recent-files-fuzzy-finder/issues/37)
+
+### Fixed
+- Fix support for Atom 1.37 (and maybe a few older versions) [#36](https://github.com/viddo/recent-files-fuzzy-finder/issues/36)
+
 
 ## [0.6.1] - 2018-04-14
 ### Fixed
